@@ -2,105 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GHOIB STORE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: white;
-      overflow-x: hidden;
+      font-family: 'Creepster', cursive;
+      background: black;
+      overflow: hidden;
+      position: relative;
+      color: #ff1a1a;
+    }
+
+    /* Background Fog Animation */
+    .background {
+      position: fixed;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, #000000 0%, #111111 40%, #0a0a0a 100%);
+      background-size: cover;
+      animation: bgMove 60s linear infinite;
+      z-index: -3;
+    }
+
+    @keyframes bgMove {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.2) rotate(360deg); }
+    }
+
+    .fog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: url('https://i.imgur.com/Fu1u02V.png') repeat;
+      background-size: cover;
+      opacity: 0.05;
+      animation: fogMove 120s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes fogMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     header {
-      background-color: #111;
-      padding: 20px 0;
-      box-shadow: 0 0 20px #00ffcc;
-      animation: glow 2s ease-in-out infinite alternate;
-      overflow: hidden;
-      position: relative;
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 60px red;
     }
 
-    .marquee-wrapper {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .marquee-text {
+    .animated-title span {
       display: inline-block;
-      white-space: nowrap;
-      font-size: 3rem;
-      animation: 
-        marquee 10s linear infinite,
-        colorCycle 3s linear infinite;
+      font-size: 5rem;
+      text-shadow: 0 0 10px red, 0 0 20px #ff0000;
+      animation: dropIn 1s ease forwards, flicker 2s infinite alternate;
+      opacity: 0;
     }
 
-    @keyframes marquee {
-      0% {
-        transform: translateX(100%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
+    @keyframes dropIn {
+      from { opacity: 0; transform: translateY(-100px) rotate(-10deg); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes glow {
-      from {
-        box-shadow: 0 0 10px #00ffcc;
-      }
-      to {
-        box-shadow: 0 0 30px #00ffcc;
-      }
-    }
-
-    @keyframes colorCycle {
-      0% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
-      25% { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
-      50% { color: #0000ff; text-shadow: 0 0 10px #0000ff; }
-      75% { color: #ffff00; text-shadow: 0 0 10px #ffff00; }
-      100% { color: #ff00ff; text-shadow: 0 0 10px #ff00ff; }
+    @keyframes flicker {
+      0%, 100% { text-shadow: 0 0 5px red, 0 0 10px #ff0000; }
+      50% { text-shadow: 0 0 20px red, 0 0 30px crimson; }
     }
 
     .content {
       text-align: center;
       padding: 50px 20px;
-      animation: fadeIn 2s ease forwards;
+      background: rgba(10, 0, 0, 0.7);
+      border-top: 5px solid crimson;
+      border-bottom: 5px solid darkred;
+      box-shadow: inset 0 0 40px crimson;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .glow-text {
+      font-size: 1.7rem;
+      color: #ffcccc;
+      text-shadow: 0 0 5px #ff0000, 0 0 15px red;
+      margin-bottom: 20px;
     }
 
     .btn {
-      background: #00ffcc;
-      color: #111;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1rem;
-      border-radius: 8px;
+      background: linear-gradient(45deg, darkred, black);
+      color: white;
+      border: 2px solid crimson;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      font-family: 'Creepster', cursive;
+      border-radius: 5px;
       cursor: pointer;
-      transition: transform 0.3s ease, background 0.3s ease;
-      margin-top: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 10px crimson;
     }
 
     .btn:hover {
       transform: scale(1.1);
-      background: #00ffaa;
-    }
-
-    .glow-text {
-      text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+      box-shadow: 0 0 25px crimson, 0 0 40px red;
     }
 
     .button-container {
@@ -108,26 +113,55 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
     }
+
   </style>
 </head>
 <body>
+  <div class="background"></div>
+  <div class="fog"></div>
+
   <header>
-    <div class="marquee-wrapper">
-      <h1 class="marquee-text">GHOIB STORE</h1>
-    </div>
+    <div class="animated-title" id="animatedTitle"></div>
   </header>
+
   <div class="content">
-    <p class="glow-text">Selamat datang di GHOIB STORE - tempat belanja yang tidak biasa.</p>
+    <p class="glow-text">Selamat datang di <strong>GHOIB STORE</strong><br>Tempat jual beli barang mistis & config dari alam lain...</p>
     <button class="btn" onclick="window.open('https://wa.me/6287865640750?text=BANG+BELI+CONFIG+PREMIUM', '_blank')">Lihat Penawaran Ghoib</button>
 
     <div class="button-container">
-      <button class="btn" onclick="window.open('https://wa.me/6287865640750', '_blank')">Wa Admin</button>
-      <button class="btn" onclick="window.open('https://example.com/produk2', '_blank')">Produk 2</button>
-      <button class="btn" onclick="window.open('https://example.com/produk3', '_blank')">Produk 3</button>
-      <button class="btn" onclick="window.open('https://example.com/produk4', '_blank')">Produk 4</button>
+      <button class="btn" onclick="window.open('https://wa.me/6287865640750', '_blank')">Hubungi Admin</button>
+      <button class="btn" onclick="window.open('https://example.com/produk2', '_blank')">Paket Gaib</button>
+      <button class="btn" onclick="window.open('https://example.com/produk3', '_blank')">Mantra Rahasia</button>
+      <button class="btn" onclick="window.open('https://example.com/produk4', '_blank')">Config Terlarang</button>
     </div>
   </div>
+
+  <audio id="typeSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+  <audio src="https://cdn.pixabay.com/audio/2021/08/08/audio_5e6a2338b0.mp3" autoplay loop></audio>
+
+  <script>
+    const title = "GHOIB STORE";
+    const container = document.getElementById("animatedTitle");
+    const typeSound = document.getElementById("typeSound");
+
+    function createAnimatedText() {
+      container.innerHTML = "";
+      title.split("").forEach((char, index) => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.style.animationDelay = `${index * 0.2}s`;
+        setTimeout(() => {
+          typeSound.currentTime = 0;
+          typeSound.play();
+        }, index * 200);
+        container.appendChild(span);
+      });
+    }
+
+    createAnimatedText();
+    setInterval(createAnimatedText, 5000);
+  </script>
 </body>
-</html><br>
+</html>
